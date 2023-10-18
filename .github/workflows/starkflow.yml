@@ -35,7 +35,6 @@ jobs:
                 https://www.getstark.co/tos/
                 https://www.getstark.co/adobe-xd/
                 https://www.getstark.co/pricing/
-                https://www.getstark.co/slack/
                 https://www.getstark.co/edge/
                 https://www.getstark.co/cookies/
                 https://www.getstark.co/blog/
@@ -127,5 +126,4 @@ jobs:
                 https://www.getstark.co/cookies
                 https://www.getstark.co/privacy
                 https://www.getstark.co/tos
-                https://www.getstark.co/slack
                 https://www.getstark.co/blog/stark-APCA-beta/
