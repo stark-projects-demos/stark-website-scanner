@@ -1,0 +1,131 @@
+name: Stark Web Audit
+run-name: ${{ github.event.inputs.display-title }}
+
+on:
+  workflow_dispatch:
+    inputs:
+      token:
+        description: 'Stark Token'
+        required: true
+      display-title:
+        description: 'Display title'
+        required: true
+
+jobs:
+  accessibility-audit:
+    runs-on: ubuntu-latest
+
+    name: Accessibility Audit
+    steps:
+      - name: Checkout code
+        id: code-checkout
+        uses: actions/checkout@v3
+
+      - name: Audit
+        id: stark
+        uses: stark-contrast/accessibility-check-action@0.3.1-beta.0
+        with:
+            # Most of the following values are simply shell commands. You can use these to set up the container as needed for your app
+            token: ${{ github.event.inputs.token }} # The action will use this to send an audit report back to Stark.
+            wait_time: 100 # [Required, default 5000] Milliseconds to wait before your app can start serving
+            urls: |-
+                https://www.getstark.co/
+                https://www.getstark.co/security/
+                https://www.getstark.co/firefox/
+                https://www.getstark.co/tos/
+                https://www.getstark.co/adobe-xd/
+                https://www.getstark.co/pricing/
+                https://www.getstark.co/slack/
+                https://www.getstark.co/edge/
+                https://www.getstark.co/cookies/
+                https://www.getstark.co/blog/
+                https://www.getstark.co/library/
+                https://www.getstark.co/sketch/download/
+                https://www.getstark.co/community/
+                https://www.getstark.co/support/
+                https://www.getstark.co/release-notes/
+                https://www.getstark.co/gdpr/
+                https://www.getstark.co/safari/
+                https://www.getstark.co/arc/
+                https://www.getstark.co/brave/
+                https://www.getstark.co/figma/
+                https://www.getstark.co/chrome/
+                https://www.getstark.co/privacy/
+                https://www.getstark.co/support/contact-us/
+                https://www.getstark.co/sketch/
+                https://www.getstark.co/suaf/
+                https://www.getstark.co/figjam/
+                https://www.getstark.co/contact-sales/
+                https://www.getstark.co/pricing/?team/
+                https://www.getstark.co/blog/15-must-read-books-on-accessibility/
+                https://www.getstark.co/blog/smart-suggestions/
+                https://www.getstark.co/blog/interview-julie-chabin-product-hunt/
+                https://www.getstark.co/blog/announcing-stark-for-mac-in-private-beta/
+                https://www.getstark.co/blog/do-virtual-whiteboard-apps-work-for-everyone/
+                https://www.getstark.co/blog/community-gems-learning-about-accessible-design/
+                https://www.getstark.co/blog/introducing-the-stark-for-mac-library/
+                https://www.getstark.co/blog/top-stark-moments-of-2021/
+                https://www.getstark.co/blog/say-hello-to-stark-for-firefox/
+                https://www.getstark.co/blog/introducing-the-new-stark-for-mac-app/
+                https://www.getstark.co/blog/engineering/
+                https://www.getstark.co/blog/wcag-audit-report-beta/
+                https://www.getstark.co/blog/hello-stark-accounts/
+                https://www.getstark.co/blog/spotlighting-access-raquel-breternitz/
+                https://www.getstark.co/blog/4-signs-your-product-is-not-as-accessible-as-you-think/
+                https://www.getstark.co/blog/guides/
+                https://www.getstark.co/blog/all-new-focus-order-typography-alt-text/
+                https://www.getstark.co/blog/interviews/
+                https://www.getstark.co/blog/the-social-model-do-we-disable-people-through-our-tech/
+                https://www.getstark.co/blog/accessibility-and-usability-the-dynamic-duo/
+                https://www.getstark.co/blog/accessible-images-and-visual-content/
+                https://www.getstark.co/blog/realizing-the-importance-of-accessible-and-inclusive-design/
+                https://www.getstark.co/blog/focus-and-interaction-states/
+                https://www.getstark.co/blog/introducing-aria-headings-touchtargets-sidekick/
+                https://www.getstark.co/blog/building-an-accessible-society/
+                https://www.getstark.co/blog/contrast-checker-color-updates-figma-sketch/
+                https://www.getstark.co/blog/meet-the-new-stark-suite/
+                https://www.getstark.co/blog/introducing-redesigned-plugins-for-figma-and-sketch/
+                https://www.getstark.co/blog/how-we-updated-our-vision-simulator-with-help-from-our-community/
+                https://www.getstark.co/blog/introducing-more-vision-simulator-scenarios/
+                https://www.getstark.co/blog/open-public-library-doors/
+                https://www.getstark.co/blog/introducing-rapid-live-contrast-checks-with-adobe-xds-plugin-panels/
+                https://www.getstark.co/blog/updated-personal-billing-stark-accounts/
+                https://www.getstark.co/blog/accessible-contrast-ratios-and-a-levels-explained/
+                https://www.getstark.co/blog/announcing-funding/
+                https://www.getstark.co/blog/introducing-stark-for-adobe-xd/
+                https://www.getstark.co/blog/contrast-checking-with-opacity/
+                https://www.getstark.co/blog/stark-named-to-fast-company-world-changing-ideas-2023-list/
+                https://www.getstark.co/blog/stark-for-safari-and-arc/
+                https://www.getstark.co/blog/simulations-are-perfectly-imperfect/
+                https://www.getstark.co/blog/introducing-compliance-center/
+                https://www.getstark.co/blog/public-library-v2-updates/
+                https://www.getstark.co/blog/introducing-the-stark-community-project/
+                https://www.getstark.co/blog/introducing-stark-for-developers-beta/
+                https://www.getstark.co/blog/introducing-starks-landmarks/
+                https://www.getstark.co/blog/the-most-heartwarming-feedback-weve-received/
+                https://www.getstark.co/blog/the-persona-question/
+                https://www.getstark.co/blog/a-discouraging-cpacc-exam-experience/
+                https://www.getstark.co/blog/the-rise-in-accessible-gaming/
+                https://www.getstark.co/blog/intro-focus-order/
+                https://www.getstark.co/blog/blurred-vision/
+                https://www.getstark.co/blog/announcements/
+                https://www.getstark.co/blog/where-accessibility-shines-in-ios-14/
+                https://www.getstark.co/blog/community-gems-presenting-accessibility-related-work/
+                https://www.getstark.co/blog/draggable-windows-in-sketch-again/
+                https://www.getstark.co/blog/dark-mode-in-stark-is-here/
+                https://www.getstark.co/blog/quicker-checks-using/
+                https://www.getstark.co/blog/what-the-standard-for-accessible/
+                https://www.getstark.co/blog/boundless-stark-ireland-guide/
+                https://www.getstark.co/blog/introducing-stark-for-education-and-free-trials-for-teams/
+                https://www.getstark.co/blog/celebrating-disability-pride-plus-5-ways-you-can-support/
+                https://www.getstark.co/blog/stark-team-management/
+                https://www.getstark.co/blog/announcing-starks-paid-plans/
+                https://www.getstark.co/blog/creating-accessible-components/
+                https://www.getstark.co/blog/ada-33rd-anniversary/
+                https://www.getstark.co/contact-sales
+                https://www.getstark.co/pricing?team/
+                https://www.getstark.co/cookies
+                https://www.getstark.co/privacy
+                https://www.getstark.co/tos
+                https://www.getstark.co/slack
+                https://www.getstark.co/blog/stark-APCA-beta/
